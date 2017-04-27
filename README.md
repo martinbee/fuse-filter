@@ -2,16 +2,17 @@
 
 ## Props:
 
-PropName        | Type     | Default                            | Required |
-debounce        | number   | 400                                | No       |
-title           | string   | "Fuse Filter"                      | No       |
-data            | array    |                                    | Yes      |
-fuseConfig      | object   |                                    | Yes      |
-renderItem      | function | () => <div>{fuseCOnfig.key1}</div> | No       |
-onChange        | function |                                    | No       |
-displayOptions  | object   | See below                          | No       |
-  - limit       | number   | 9                                  | No       |
-  - initialData | bool     | false                              | No       |
+         | PropName        | Type                                 | Default                              | Required |
+         | --------------- | ------------------------------------ | ------------------------------------ | -------- |
+         | debounce        | number                               | 400                                  | No       |
+         | title           | string                               | "Fuse Filter"                        | No       |
+         | data            | array                                |                                      | Yes      |
+         | fuseConfig      | object                               |                                      | Yes      |
+         | renderItem      | function                             | `() => <div>{fuseCOnfig.key1}</div>` | No       |
+         | onChange        | function                             |                                      | No       |
+         | displayOptions  | object                               | See below                            | No       |
+         | - limit         | number                               | 9                                    | No       |
+         | - initialData   | bool                                 | false                                | No       |
 
 
 ## Layout:
