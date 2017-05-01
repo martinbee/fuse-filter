@@ -34,33 +34,39 @@ class FilterContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(nextProps.data, this.props.data)) this.fuseResults(this.state.filterTerm, nextProps.data);
+    const { data, displayOptions: { limit } } = this.props;
+
+    const nextPropsLimit = _.get(nextProps.displayOptions, 'limit');
+
+    const limitChanged = limit !== nextPropsLimit;
+    const dataChanged = !_.isEqual(data, nextProps.data);
+
+    if (limitChanged || dataChanged) {
+      this.fuseResults(this.state.filterTerm, nextProps.data, nextPropsLimit);
+    }
   }
 
   onChange(evt) {
+    const { debounce, data, displayOptions: { limit } } = this.props;
+
     const filterTerm = evt.target.value;
 
     this.setState({ filterTerm });
 
-    _.debounce(() => this.fuseResults(filterTerm), this.props.debounce)();
+    _.debounce(() => this.fuseResults(filterTerm, data, limit), debounce)();
   }
 
-  fuseResults(filterTerm, newData) {
-    const { data, fuseConfig, displayOptions: { limit } } = this.props;
-
-    console.log('filter');
-    const fuse = new Fuse((newData || data), fuseConfig);
+  fuseResults(filterTerm, data, limit) {
+    const fuse = new Fuse(data, this.props.fuseConfig);
     const filteredData = fuse
       .search(filterTerm)
       .slice(0, limit);
 
-    console.log(this.state.filteredData, filteredData);
     this.setState({ filteredData });
   }
 
   render() {
     const { title, renderItem } = this.props;
-    console.log('render', this.props.data.length, this.state.filteredData);
 
     return (
       <div>
