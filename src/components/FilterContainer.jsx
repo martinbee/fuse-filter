@@ -14,17 +14,30 @@ import {
 import DefaultCard from './cards/DefaultCard';
 import FilterDisplay from './FilterDisplay';
 
-class FilterContainer extends Component {
-  constructor() {
-    super();
+export default class FilterContainer extends Component {
+  static defaultProps = {
+    debounce: 400,
+    title: 'Fuse Filter',
+    renderItem: DefaultCard,
+    displayOptions: {
+      limit: 12,
+      showBlankStateData: true,
+    },
+  };
 
-    this.state = {
-      filterTerm: '',
-      filteredData: [],
-    };
+  static propTypes = {
+    debounce: number,
+    title: string,
+    data: arrayOf(object).isRequired,
+    fuseConfig: object.isRequired,
+    renderItem: func,
+    displayOptions: shape({
+      limit: number,
+      showBlankStateData: bool,
+    }),
+  };
 
-    this.onChange = this.onChange.bind(this);
-  }
+  state = { filterTerm: '', filteredData: [] };
 
   componentWillMount() {
     const { displayOptions: { showBlankStateData, limit }, data } = this.props;
@@ -45,15 +58,6 @@ class FilterContainer extends Component {
     }
   }
 
-  onChange(evt) {
-    const { debounce, data, displayOptions: { limit } } = this.props;
-
-    const filterTerm = evt.target.value;
-
-    this.setState({ filterTerm });
-    _.debounce(() => this.setFuseFilteredData(filterTerm, data, limit), debounce)();
-  }
-
   setFuseFilteredData(filterTerm, data, limit) {
     const { fuseConfig, displayOptions: { showBlankStateData } } = this.props;
 
@@ -70,6 +74,15 @@ class FilterContainer extends Component {
     this.setState({ filteredData: dataToDisplay.slice(0, limit) });
   }
 
+  onChange = (evt) => {
+    const { debounce, data, displayOptions: { limit } } = this.props;
+
+    const filterTerm = evt.target.value;
+
+    this.setState({ filterTerm });
+    _.debounce(() => this.setFuseFilteredData(filterTerm, data, limit), debounce)();
+  };
+
   render() {
     const { title, renderItem } = this.props;
 
@@ -83,27 +96,3 @@ class FilterContainer extends Component {
     );
   }
 }
-
-FilterContainer.defaultProps = {
-  debounce: 400,
-  title: 'Fuse Filter',
-  renderItem: DefaultCard,
-  displayOptions: {
-    limit: 12,
-    showBlankStateData: true,
-  },
-};
-
-FilterContainer.propTypes = {
-  debounce: number,
-  title: string,
-  data: arrayOf(object).isRequired,
-  fuseConfig: object.isRequired,
-  renderItem: func,
-  displayOptions: shape({
-    limit: number,
-    showBlankStateData: bool,
-  }),
-};
-
-export default FilterContainer;
