@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = ({
+const PersonCard = ({
   id,
   participantName,
   clientId,
@@ -22,4 +22,4 @@ const Card = ({
 );
 
 
-export default Card;
+export default PersonCard;

@@ -11,6 +11,7 @@ import {
   shape,
 } from 'prop-types';
 
+import DefaultCard from './cards/DefaultCard';
 import FilterDisplay from './FilterDisplay';
 
 class FilterContainer extends Component {
@@ -28,7 +29,7 @@ class FilterContainer extends Component {
   componentWillMount() {
     const { displayOptions: { showBlankStateData, limit }, data } = this.props;
 
-    if (showBlankStateData) this.setState({ filteredData: data.slice(0, limit) });
+    if (showBlankStateData) this.setFuseFilteredData(this.state.filterTerm, data, limit);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -40,7 +41,7 @@ class FilterContainer extends Component {
     const dataChanged = !_.isEqual(data, nextProps.data);
 
     if (limitChanged || dataChanged) {
-      this.fuseResults(this.state.filterTerm, nextProps.data, nextPropsLimit);
+      this.setFuseFilteredData(this.state.filterTerm, nextProps.data, nextPropsLimit);
     }
   }
 
@@ -50,17 +51,23 @@ class FilterContainer extends Component {
     const filterTerm = evt.target.value;
 
     this.setState({ filterTerm });
-
-    _.debounce(() => this.fuseResults(filterTerm, data, limit), debounce)();
+    _.debounce(() => this.setFuseFilteredData(filterTerm, data, limit), debounce)();
   }
 
-  fuseResults(filterTerm, data, limit) {
-    const fuse = new Fuse(data, this.props.fuseConfig);
-    const filteredData = fuse
-      .search(filterTerm)
-      .slice(0, limit);
+  setFuseFilteredData(filterTerm, data, limit) {
+    const { fuseConfig, displayOptions: { showBlankStateData } } = this.props;
 
-    this.setState({ filteredData });
+    let dataToDisplay;
+
+    if (!filterTerm && showBlankStateData) {
+      dataToDisplay = data;
+    } else {
+      const fuse = new Fuse(data, fuseConfig);
+
+      dataToDisplay = fuse.search(filterTerm);
+    }
+
+    this.setState({ filteredData: dataToDisplay.slice(0, limit) });
   }
 
   render() {
@@ -80,12 +87,7 @@ class FilterContainer extends Component {
 FilterContainer.defaultProps = {
   debounce: 400,
   title: 'Fuse Filter',
-  renderItem: (dataItem) => {
-    const dataKey = Object.keys(dataItem)[0];
-    const dataValue = dataItem[dataKey];
-
-    return <div key={dataValue}>{dataValue}</div>;
-  },
+  renderItem: DefaultCard,
   displayOptions: {
     limit: 12,
     showBlankStateData: true,

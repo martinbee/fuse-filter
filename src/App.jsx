@@ -6,7 +6,7 @@ import people from './data/10000.json';
 
 import AppHeader from './components/AppHeader';
 import FilterContainer from './components/FilterContainer';
-import Card from './components/Card';
+import PersonCard from './components/cards/PersonCard';
 
 
 const demoOptions = [
@@ -32,7 +32,7 @@ const demoOptions = [
   },
   {
     title: 'RenderItem Function',
-    values: ['Card', 'Default'],
+    values: ['PersonCard', 'Default'],
     stateKey: 'renderItemFunction',
   },
 ];
@@ -46,7 +46,7 @@ export default class App extends Component {
       dataCount: '1000',
       limit: '5',
       componentType: 'Filter',
-      renderItemFunction: 'Card',
+      renderItemFunction: 'PersonCard',
     };
   }
 
@@ -77,7 +77,7 @@ export default class App extends Component {
       fuseConfig,
     };
 
-    if (renderItemFunction === 'Card') filterProps.renderItem = Card;
+    if (renderItemFunction === 'PersonCard') filterProps.renderItem = PersonCard;
 
     return filterProps;
   }
