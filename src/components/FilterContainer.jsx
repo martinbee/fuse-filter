@@ -16,15 +16,36 @@ import FilterInput from './FilterInput';
 import Results from './Results';
 
 class FilterContainer extends Component {
-  constructor() {
-    super();
+  static state = {
+    filterTerm: '',
+    filteredData: [],
+  }
 
-    this.state = {
-      filterTerm: '',
-      filteredData: [],
-    };
+  static defaultProps = {
+    debounce: 400,
+    title: 'Fuse Filter',
+    renderItem: (dataItem) => {
+      const dataKey = Object.keys(dataItem)[0];
+      const dataValue = dataItem[dataKey];
 
-    this.onChange = this.onChange.bind(this);
+      return <div key={dataValue}>{dataValue}</div>;
+    },
+    displayOptions: {
+      limit: 9,
+      initialData: false,
+    },
+  }
+
+  static propTypes = {
+    debounce: number,
+    title: string,
+    data: arrayOf(object).isRequired,
+    fuseConfig: object.isRequired,
+    renderItem: func,
+    displayOptions: shape({
+      limit: number,
+      initialData: bool,
+    }),
   }
 
   componentWillMount() {
@@ -37,7 +58,7 @@ class FilterContainer extends Component {
     if (!_.isEqual(nextProps.data, this.props.data)) this.fuseResults(this.state.filterTerm, nextProps.data);
   }
 
-  onChange(evt) {
+  onChange = (evt) => {
     const filterTerm = evt.target.value;
 
     this.setState({ filterTerm });
@@ -45,7 +66,7 @@ class FilterContainer extends Component {
     _.debounce(() => this.fuseResults(filterTerm), this.props.debounce)();
   }
 
-  fuseResults(filterTerm, newData) {
+  fuseResults = (filterTerm, newData) => {
     const { data, fuseConfig, displayOptions: { limit } } = this.props;
 
     console.log('filter');
@@ -71,32 +92,5 @@ class FilterContainer extends Component {
     );
   }
 }
-
-FilterContainer.defaultProps = {
-  debounce: 400,
-  title: 'Fuse Filter',
-  renderItem: (dataItem) => {
-    const dataKey = Object.keys(dataItem)[0];
-    const dataValue = dataItem[dataKey];
-
-    return <div key={dataValue}>{dataValue}</div>;
-  },
-  displayOptions: {
-    limit: 9,
-    initialData: false,
-  },
-};
-
-FilterContainer.propTypes = {
-  debounce: number,
-  title: string,
-  data: arrayOf(object).isRequired,
-  fuseConfig: object.isRequired,
-  renderItem: func,
-  displayOptions: shape({
-    limit: number,
-    initialData: bool,
-  }),
-};
 
 export default FilterContainer;

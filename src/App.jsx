@@ -38,19 +38,15 @@ const demoOptions = [
 ];
 
 export default class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      debounce: '100',
-      dataCount: '1000',
-      limit: '5',
-      initialData: 'Yes',
-      renderItemFunction: 'Card',
-    };
+  state = {
+    debounce: '100',
+    dataCount: '1000',
+    limit: '5',
+    initialData: 'Yes',
+    renderItemFunction: 'Card',
   }
 
-  setDemoOption(evt, stateKey) {
+  setDemoOption = (evt, stateKey) => {
     const newState = {};
 
     newState[stateKey] = evt.target.value;
@@ -58,7 +54,7 @@ export default class App extends Component {
     this.setState(newState);
   }
 
-  getFilterProps() {
+  getFilterProps = () => {
     const {
       debounce,
       dataCount,
@@ -82,7 +78,7 @@ export default class App extends Component {
     return filterProps;
   }
 
-  renderOptionInputs() {
+  renderOptionInputs = () => {
     return demoOptions.map(({ title, values, stateKey }) => (
       <div key={stateKey}>
         <div>
