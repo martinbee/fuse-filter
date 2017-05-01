@@ -49,7 +49,6 @@ export default class FilterContainer extends Component {
     const { data, displayOptions: { limit } } = this.props;
 
     const nextPropsLimit = _.get(nextProps.displayOptions, 'limit');
-
     const limitChanged = limit !== nextPropsLimit;
     const dataChanged = !_.isEqual(data, nextProps.data);
 
@@ -79,8 +78,9 @@ export default class FilterContainer extends Component {
 
     const filterTerm = evt.target.value;
 
-    this.setState({ filterTerm });
     _.debounce(() => this.setFuseFilteredData(filterTerm, data, limit), debounce)();
+
+    this.setState({ filterTerm });
   };
 
   render() {
