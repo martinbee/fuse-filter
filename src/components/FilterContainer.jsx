@@ -11,9 +11,7 @@ import {
   shape,
 } from 'prop-types';
 
-import Header from './Header';
-import FilterInput from './FilterInput';
-import Results from './Results';
+import FilterDisplay from './FilterDisplay';
 
 class FilterContainer extends Component {
   constructor() {
@@ -69,11 +67,12 @@ class FilterContainer extends Component {
     const { title, renderItem } = this.props;
 
     return (
-      <div>
-        <Header title={title} />
-        <FilterInput onChange={this.onChange} />
-        <Results data={this.state.filteredData} renderItem={renderItem} />
-      </div>
+      <FilterDisplay
+        title={title}
+        onChange={this.onChange}
+        data={this.state.filteredData}
+        renderItem={renderItem}
+      />
     );
   }
 }
