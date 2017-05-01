@@ -1,20 +1,20 @@
 # Wrapper for [fuse.js]*(http://fusejs.io/).
 
-## Props:
+## Props
 
-         | PropName        | Type                                 | Default                              | Required |
-         | --------------- | ------------------------------------ | ------------------------------------ | -------- |
-         | debounce        | number                               | 400                                  | No       |
-         | title           | string                               | "Fuse Filter"                        | No       |
-         | data            | array                                |                                      | Yes      |
-         | fuseConfig      | object                               |                                      | Yes      |
-         | renderItem      | function                             | `() => <div>{fuseCOnfig.key1}</div>` | No       |
-         | displayOptions  | object                               | See below                            | No       |
-         | - limit         | number                               | 9                                    | No       |
-         | - initialData   | bool                                 | false                                | No       |
+| PropName        | Type                                 | Default                              | Required |
+| --------------- | ------------------------------------ | ------------------------------------ | -------- |
+| debounce        | number                               | 400                                  | No       |
+| title           | string                               | "Fuse Filter"                        | No       |
+| data            | array                                |                                      | Yes      |
+| fuseConfig      | object                               |                                      | Yes      |
+| renderItem      | function                             | `() => <div>{fuseCOnfig.key1}</div>` | No       |
+| displayOptions  | object                               | See below                            | No       |
+| - limit         | number                               | 12                                   | No       |
+| - initialData   | bool                                 | true                                 | No       |
 
 
-## Layout:
+## Layout
 
 FuseFilter (Container)
 - FuseDisplay (Display)

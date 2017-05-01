@@ -87,8 +87,8 @@ FilterContainer.defaultProps = {
     return <div key={dataValue}>{dataValue}</div>;
   },
   displayOptions: {
-    limit: 9,
-    initialData: false,
+    limit: 12,
+    initialData: true,
   },
 };
 
