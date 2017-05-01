@@ -17,12 +17,12 @@ const demoOptions = [
   },
   {
     title: 'Data Item Count',
-    values: [1000, 5000, 10000],
+    values: ['1000', '5000', '10000'],
     stateKey: 'dataCount',
   },
   {
     title: 'Display Limit',
-    values: [5, 10, 20, 50],
+    values: ['5', '10', '20', '50'],
     stateKey: 'limit',
   },
   {
@@ -43,8 +43,8 @@ export default class App extends Component {
 
     this.state = {
       debounce: '100',
-      dataCount: 1000,
-      limit: 5,
+      dataCount: '1000',
+      limit: '5',
       initialData: 'Yes',
       renderItemFunction: 'Card',
     };
@@ -68,10 +68,10 @@ export default class App extends Component {
     } = this.state;
 
     const filterProps = {
-      debounce,
       data: people.slice(0, dataCount),
+      debounce: Number(debounce),
       displayOptions: {
-        limit,
+        limit: Number(limit),
         initialData: initialData === 'Yes',
       },
       fuseConfig,
@@ -108,12 +108,3 @@ export default class App extends Component {
     );
   }
 }
-
-//| debounce        | number                               | 400                                  | No       |
-//| title           | string                               | "Fuse Filter"                        | No       |
-//| data            | array                                |                                      | Yes      |
-//| fuseConfig      | object                               |                                      | Yes      |
-//| renderItem      | function                             | `() => <div>{fuseCOnfig.key1}</div>` | No       |
-//| displayOptions  | object                               | See below                            | No       |
-//| - limit         | number                               | 9                                    | No       |
-//| - initialData   | bool                                 | false                                | No       |
