@@ -2,16 +2,16 @@
 
 ## Props
 
-| PropName        | Type                                 | Default                              | Required |
-| --------------- | ------------------------------------ | ------------------------------------ | -------- |
-| debounce        | number                               | 400                                  | No       |
-| title           | string                               | "Fuse Filter"                        | No       |
-| data            | array                                |                                      | Yes      |
-| fuseConfig      | object                               |                                      | Yes      |
-| renderItem      | function                             | `() => <div>{fuseCOnfig.key1}</div>` | No       |
-| displayOptions  | object                               | See below                            | No       |
-| - limit         | number                               | 12                                   | No       |
-| - initialData   | bool                                 | true                                 | No       |
+| PropName               | Type                                 | Default                              | Required |
+| ---------------------- | ------------------------------------ | ------------------------------------ | -------- |
+| debounce               | number                               | 400                                  | No       |
+| title                  | string                               | "Fuse Filter"                        | No       |
+| data                   | array                                |                                      | Yes      |
+| fuseConfig             | object                               |                                      | Yes      |
+| renderItem             | function                             | Card component                       | No       |
+| displayOptions         | object                               | See below                            | No       |
+| - limit                | number                               | 12                                   | No       |
+| - showBlankStateData   | bool                                 | true                                 | No       |
 
 
 ## Layout

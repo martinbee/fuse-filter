@@ -26,9 +26,9 @@ class FilterContainer extends Component {
   }
 
   componentWillMount() {
-    const { displayOptions: { initialData, limit }, data } = this.props;
+    const { displayOptions: { showBlankStateData, limit }, data } = this.props;
 
-    if (initialData) this.setState({ filteredData: data.slice(0, limit) });
+    if (showBlankStateData) this.setState({ filteredData: data.slice(0, limit) });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -88,7 +88,7 @@ FilterContainer.defaultProps = {
   },
   displayOptions: {
     limit: 12,
-    initialData: true,
+    showBlankStateData: true,
   },
 };
 
@@ -100,7 +100,7 @@ FilterContainer.propTypes = {
   renderItem: func,
   displayOptions: shape({
     limit: number,
-    initialData: bool,
+    showBlankStateData: bool,
   }),
 };
 

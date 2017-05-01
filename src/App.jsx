@@ -72,7 +72,7 @@ export default class App extends Component {
       debounce: Number(debounce),
       displayOptions: {
         limit: Number(limit),
-        initialData: componentType === 'Filter',
+        showBlankStateData: componentType === 'Filter',
       },
       fuseConfig,
     };
