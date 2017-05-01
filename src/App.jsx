@@ -26,9 +26,9 @@ const demoOptions = [
     stateKey: 'limit',
   },
   {
-    title: 'Display Initial Data',
-    values: ['Yes', 'No'],
-    stateKey: 'initialData',
+    title: 'Component Type',
+    values: ['Filter', 'Search'],
+    stateKey: 'componentType',
   },
   {
     title: 'RenderItem Function',
@@ -45,7 +45,7 @@ export default class App extends Component {
       debounce: '100',
       dataCount: '1000',
       limit: '5',
-      initialData: 'Yes',
+      componentType: 'Filter',
       renderItemFunction: 'Card',
     };
   }
@@ -62,7 +62,7 @@ export default class App extends Component {
     const {
       debounce,
       dataCount,
-      initialData,
+      componentType,
       limit,
       renderItemFunction,
     } = this.state;
@@ -72,7 +72,7 @@ export default class App extends Component {
       debounce: Number(debounce),
       displayOptions: {
         limit: Number(limit),
-        initialData: initialData === 'Yes',
+        initialData: componentType === 'Filter',
       },
       fuseConfig,
     };
