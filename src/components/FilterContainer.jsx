@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Fuse from 'fuse.js';
 import _ from 'lodash';
 import {
@@ -14,7 +14,7 @@ import {
 import DefaultCard from './cards/DefaultCard';
 import FilterDisplay from './FilterDisplay';
 
-export default class FilterContainer extends Component {
+export default class FilterContainer extends PureComponent {
   static defaultProps = {
     debounce: 400,
     title: 'Fuse Filter',
@@ -79,7 +79,6 @@ export default class FilterContainer extends Component {
     const filterTerm = evt.target.value;
 
     _.debounce(() => this.setFuseFilteredData(filterTerm, data, limit), debounce)();
-
     this.setState({ filterTerm });
   };
 

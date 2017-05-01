@@ -46,16 +46,15 @@ export default class App extends Component {
     renderItemFunction: 'PersonCard',
   };
 
-
-  setDemoOption = (evt, stateKey) => {
+  setDemoOption(evt, stateKey) {
     const newState = {};
 
     newState[stateKey] = evt.target.value;
 
     this.setState(newState);
-  };
+  }
 
-  getFilterProps = () => {
+  getFilterProps() {
     const {
       debounce,
       dataCount,
@@ -77,9 +76,9 @@ export default class App extends Component {
     if (renderItemFunction === 'PersonCard') filterProps.renderItem = PersonCard;
 
     return filterProps;
-  };
+  }
 
-  renderOptionInputs = () => {
+  renderOptionInputs() {
     return demoOptions.map(({ title, values, stateKey }) => (
       <div key={stateKey}>
         <div>
@@ -90,7 +89,7 @@ export default class App extends Component {
         </select>
       </div>
     ));
-  };
+  }
 
   render() {
     const filterProps = this.getFilterProps();
