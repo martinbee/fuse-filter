@@ -20,17 +20,22 @@ Fuse.js is a library that provides configurable and quick filtering of data.
 
 ### Props in Detail
 
-#### debounce: Sets the debounce rate on the fuse filter. This prevents unnecessary
+#### debounce:
+Sets the debounce rate on the fuse filter. This prevents unnecessary
 filtering and allows users to customize how often filtering occurs.
 
-#### title: The title that displays in the Fuse Filter headers (may be removed).
+#### title:
+The title that displays in the Fuse Filter headers (may be removed).
 
-#### data: The data to be filtered. Should be an array of objects.
+#### data:
+The data to be filtered. Should be an array of objects.
 
-#### fuseConfig: The fuse configuration object. See [fuse.js](http://fusejs.io/) for
+#### fuseConfig:
+The fuse configuration object. See [fuse.js](http://fusejs.io/) for
 examples and for a custom options creator.
 
-#### renderItem: A function that tells Fuse Filter how you want to render each
+#### renderItem:
+A function that tells Fuse Filter how you want to render each
 filtered data item. This function is mapped over and provided each dataItem.
 
 ##### renderItem Examples:
@@ -38,11 +43,14 @@ filtered data item. This function is mapped over and provided each dataItem.
 - Function that takes dataItem and renders react. `dataItem =>
   <div key={dataItem.uniqueKey}>{dataItem.value}</div>`
 
-#### displayOptions: An object that contains limit and showBlankStateData.
+#### displayOptions:
+An object that contains limit and showBlankStateData.
 
-#### limit: The number of results that should be shown on each filter.
+#### limit:
+The number of results that should be shown on each filter.
 
-#### showBlankStateData: A boolean that dictates whether or not unfiltered data is shown
+#### showBlankStateData:
+A boolean that dictates whether or not unfiltered data is shown
 when there is no filterTerm set (i.e. the filter input is empty).
 
 
