@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Fuse from 'fuse.js';
 import _ from 'lodash';
 import {
@@ -15,7 +15,7 @@ import Header from './Header';
 import FilterInput from './FilterInput';
 import Results from './Results';
 
-class FilterContainer extends PureComponent {
+class FilterContainer extends Component {
   constructor() {
     super();
 
@@ -34,7 +34,7 @@ class FilterContainer extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (_.isEqual(nextProps.data, this.props.data)) this.fuseResults(this.state.filterTerm);
+    if (!_.isEqual(nextProps.data, this.props.data)) this.fuseResults(this.state.filterTerm, nextProps.data);
   }
 
   onChange(evt) {
@@ -45,20 +45,22 @@ class FilterContainer extends PureComponent {
     _.debounce(() => this.fuseResults(filterTerm), this.props.debounce)();
   }
 
-  fuseResults(filterTerm) {
+  fuseResults(filterTerm, newData) {
     const { data, fuseConfig, displayOptions: { limit } } = this.props;
 
-    const fuse = new Fuse(data, fuseConfig);
+    console.log('filter');
+    const fuse = new Fuse((newData || data), fuseConfig);
     const filteredData = fuse
       .search(filterTerm)
       .slice(0, limit);
 
+    console.log(this.state.filteredData, filteredData);
     this.setState({ filteredData });
   }
 
   render() {
     const { title, renderItem } = this.props;
-    console.log(this.props.data.length);
+    console.log('render', this.props.data.length, this.state.filteredData);
 
     return (
       <div>
