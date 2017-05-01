@@ -40,8 +40,8 @@ filtered data item. This function is mapped over and provided each dataItem.
 
 ##### renderItem Examples:
 - React component (see DefaultCard usage in demo)
-- Function that takes dataItem and renders react. `dataItem =>
-  <div key={dataItem.uniqueKey}>{dataItem.value}</div>`
+- Function that takes dataItem and renders react.
+`dataItem => <div key={dataItem.uniqueKey}>{dataItem.value}</div>`
 
 #### displayOptions:
 An object that contains limit and showBlankStateData.
