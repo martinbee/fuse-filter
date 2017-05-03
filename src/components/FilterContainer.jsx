@@ -32,6 +32,7 @@ export default class FilterContainer extends PureComponent {
     displayLimit: number,
     showBlankStateData: bool,
     selectFieldsDropdown: oneOfType([ bool, arrayOf(string) ]),
+    placeholder: string,
   };
 
   state = { filterTerm: '', filteredData: [] };
@@ -91,12 +92,13 @@ export default class FilterContainer extends PureComponent {
   };
 
   render() {
-    const { renderItem, selectFieldsDropdown } = this.props;
+    const { renderItem, selectFieldsDropdown, placeholder } = this.props;
 
     const filterDisplayProps = {
       renderItem,
       onChange: this.onChange,
       data: this.state.filteredData,
+      placeholder,
     };
 
     console.log(this.props);
