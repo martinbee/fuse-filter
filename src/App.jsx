@@ -8,11 +8,10 @@ import AppHeader from './components/AppHeader';
 import FilterContainer from './components/FilterContainer';
 import PersonCard from './components/cards/PersonCard';
 
-
 const demoOptions = [
   {
     title: 'Debounce',
-    values: ['100', '350', '600', '1000', '2000'],
+    values: ['150', '200', '300'],
     stateKey: 'debounce',
   },
   {
@@ -22,7 +21,7 @@ const demoOptions = [
   },
   {
     title: 'Display Limit',
-    values: ['5', '10', '20', '50'],
+    values: ['12', '24', '50', '100'],
     stateKey: 'limit',
   },
   {
@@ -39,9 +38,9 @@ const demoOptions = [
 
 export default class App extends Component {
   state = {
-    debounce: '100',
+    debounce: '250',
     dataCount: '1000',
-    limit: '5',
+    limit: '12',
     componentType: 'Filter',
     renderItemFunction: 'PersonCard',
   };
@@ -80,7 +79,7 @@ export default class App extends Component {
 
   renderOptionInputs() {
     return demoOptions.map(({ title, values, stateKey }) => (
-      <div key={stateKey}>
+      <div key={stateKey} className="filter">
         <div>
           {title}
         </div>
@@ -97,8 +96,9 @@ export default class App extends Component {
     return (
       <div className="App">
         <AppHeader />
-        {this.renderOptionInputs()}
-        <br />
+        <div className="App-filter">
+          {this.renderOptionInputs()}
+        </div>
         <FilterContainer {...filterProps} />
       </div>
     );

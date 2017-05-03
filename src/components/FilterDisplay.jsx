@@ -7,10 +7,12 @@ import Results from './Results';
 
 const FilterDisplay = ({ title, onChange, data, renderItem }) => (
   <div>
-    <Header title={title} />
-    <FilterInput onChange={onChange} />
+    <div className="row"><FilterInput onChange={onChange} /></div>
     <Results data={data} renderItem={renderItem} />
   </div>
 );
 
 export default FilterDisplay;
+
+
+  //<Header title={title} />
