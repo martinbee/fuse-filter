@@ -18,7 +18,6 @@ import FilterDisplay from './FilterDisplay';
 export default class FilterContainer extends PureComponent {
   static defaultProps = {
     debounce: 400,
-    title: 'Fuse Filter',
     renderItem: DefaultCard,
     displayLimit: 12,
     showBlankStateData: true,
@@ -27,7 +26,6 @@ export default class FilterContainer extends PureComponent {
 
   static propTypes = {
     debounce: number,
-    title: string,
     data: arrayOf(object).isRequired,
     fuseConfig: object.isRequired,
     renderItem: func,
@@ -70,6 +68,10 @@ export default class FilterContainer extends PureComponent {
 
     if (!filterTerm && showBlankStateData) {
       dataToDisplay = data;
+
+    } else if (!filterTerm) {
+      dataToDisplay = [];
+
     } else {
       const fuse = new Fuse(data, fuseConfig);
 
@@ -89,10 +91,9 @@ export default class FilterContainer extends PureComponent {
   };
 
   render() {
-    const { title, renderItem, selectFieldsDropdown } = this.props;
+    const { renderItem, selectFieldsDropdown } = this.props;
 
     const filterDisplayProps = {
-      title,
       renderItem,
       onChange: this.onChange,
       data: this.state.filteredData,
