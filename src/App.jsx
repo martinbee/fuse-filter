@@ -11,7 +11,7 @@ import PersonCard from './components/cards/PersonCard';
 const demoOptions = [
   {
     title: 'Debounce',
-    values: ['150', '200', '300'],
+    values: ['200', '250', '300'],
     stateKey: 'debounce',
   },
   {
