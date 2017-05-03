@@ -1,10 +1,11 @@
 import React from 'react';
+import ReactMotionFlip from 'react-motion-flip';
 
 
 const Results = ({ data, renderItem }) => (
-  <div>
+  <ReactMotionFlip>
     { data.map(renderItem) }
-  </div>
+  </ReactMotionFlip>
 );
 
 export default Results;

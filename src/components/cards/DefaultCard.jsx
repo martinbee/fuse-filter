@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 // I hate this custom key business but I'm not sure how else to do it right now
 const DefaultCard = (dataItem, index) => {
   const dataItemKeys = Object.keys(dataItem);

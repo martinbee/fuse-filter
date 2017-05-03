@@ -14,6 +14,7 @@ import {
 import DefaultCard from './cards/DefaultCard';
 import FilterDisplay from './FilterDisplay';
 
+
 export default class FilterContainer extends PureComponent {
   static defaultProps = {
     debounce: 400,
