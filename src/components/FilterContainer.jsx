@@ -8,7 +8,7 @@ import {
   object,
   func,
   arrayOf,
-  shape,
+  oneOfType,
 } from 'prop-types';
 
 import DefaultCard from './cards/DefaultCard';
@@ -19,10 +19,9 @@ export default class FilterContainer extends PureComponent {
     debounce: 400,
     title: 'Fuse Filter',
     renderItem: DefaultCard,
-    displayOptions: {
-      limit: 12,
-      showBlankStateData: true,
-    },
+    displayLimit: 12,
+    showBlankStateData: true,
+    selectFieldsDropdown: false,
   };
 
   static propTypes = {
@@ -31,34 +30,40 @@ export default class FilterContainer extends PureComponent {
     data: arrayOf(object).isRequired,
     fuseConfig: object.isRequired,
     renderItem: func,
-    displayOptions: shape({
-      limit: number,
-      showBlankStateData: bool,
-    }),
+    displayLimit: number,
+    showBlankStateData: bool,
+    selectFieldsDropdown: oneOfType([ bool, arrayOf(string) ]),
   };
 
   state = { filterTerm: '', filteredData: [] };
 
   componentWillMount() {
-    const { displayOptions: { showBlankStateData, limit }, data } = this.props;
+    const { showBlankStateData, displayLimit, data } = this.props;
 
-    if (showBlankStateData) this.setFuseFilteredData(this.state.filterTerm, data, limit);
+    if (showBlankStateData) this.setFuseFilteredData(this.state.filterTerm, data, displayLimit);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { data, displayOptions: { limit } } = this.props;
+    const { data, displayLimit } = this.props;
 
-    const nextPropsLimit = _.get(nextProps.displayOptions, 'limit');
-    const limitChanged = limit !== nextPropsLimit;
+    const limitChanged = displayLimit !== nextProps.displaylimit;
     const dataChanged = !_.isEqual(data, nextProps.data);
 
     if (limitChanged || dataChanged) {
-      this.setFuseFilteredData(this.state.filterTerm, nextProps.data, nextPropsLimit);
+      this.setFuseFilteredData(this.state.filterTerm, nextProps.data, nextProps.displayLimit);
     }
   }
 
+  getSelectFieldsDropdownKeys() {
+    const { data, selectFieldsDropdown } = this.props;
+
+    if (Array.isArray(selectFieldsDropdown)) return selectFieldsDropdown;
+
+    return Object.keys(data[0]);
+  }
+
   setFuseFilteredData(filterTerm, data, limit) {
-    const { fuseConfig, displayOptions: { showBlankStateData } } = this.props;
+    const { fuseConfig, showBlankStateData } = this.props;
 
     let dataToDisplay;
 
@@ -74,24 +79,29 @@ export default class FilterContainer extends PureComponent {
   }
 
   onChange = (evt) => {
-    const { debounce, data, displayOptions: { limit } } = this.props;
+    const { debounce, data, displayLimit } = this.props;
 
     const filterTerm = evt.target.value;
 
-    _.debounce(() => this.setFuseFilteredData(filterTerm, data, limit), debounce)();
+    _.debounce(() => this.setFuseFilteredData(filterTerm, data, displayLimit), debounce)();
     this.setState({ filterTerm });
   };
 
   render() {
-    const { title, renderItem } = this.props;
+    const { title, renderItem, selectFieldsDropdown } = this.props;
 
-    return (
-      <FilterDisplay
-        title={title}
-        onChange={this.onChange}
-        data={this.state.filteredData}
-        renderItem={renderItem}
-      />
-    );
+    const filterDisplayProps = {
+      title,
+      renderItem,
+      onChange: this.onChange,
+      data: this.state.filteredData,
+    };
+
+    console.log(this.props);
+    if (selectFieldsDropdown) {
+      filterDisplayProps.selectFieldsDropdownKeys = this.getSelectFieldsDropdownKeys();
+    }
+
+    return <FilterDisplay {...filterDisplayProps} />;
   }
 }

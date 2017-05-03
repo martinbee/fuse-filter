@@ -66,10 +66,8 @@ export default class App extends Component {
     const filterProps = {
       data: people.slice(0, dataCount),
       debounce: Number(debounce),
-      displayOptions: {
-        limit: Number(limit),
-        showBlankStateData: componentType === 'Filter',
-      },
+      displayLimit: Number(limit),
+      showBlankStateData: componentType === 'Filter',
       fuseConfig,
     };
 

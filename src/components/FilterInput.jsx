@@ -1,6 +1,12 @@
 import React from 'react';
 
 
-const FilterInput = ({ onChange }) => <input type="text" onChange={onChange} />;
+const FilterInput = (props) => {
+  console.log(props);
+
+  return (
+    <input type="text" onChange={props.onChange} />
+  );
+}
 
 export default FilterInput;
