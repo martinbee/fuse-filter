@@ -8,14 +8,16 @@ const FilterDisplay = ({
   onChange,
   data,
   renderItem,
-  selectFieldsDropdownKeys,
+  dropdownKeys,
   placeholder,
+  onKeyChange,
 }) => (
   <div>
     <div className="row">
       <FilterInput
         onChange={onChange}
-        selectFieldsDropdownKeys={selectFieldsDropdownKeys}
+        onKeyChange={onKeyChange}
+        dropdownKeys={dropdownKeys}
         placeholder={placeholder}
       />
     </div>

@@ -8,7 +8,6 @@ import {
   object,
   func,
   arrayOf,
-  oneOfType,
 } from 'prop-types';
 
 import DefaultCard from './cards/DefaultCard';
@@ -21,7 +20,7 @@ export default class FilterContainer extends PureComponent {
     renderItem: DefaultCard,
     displayLimit: 12,
     showBlankStateData: true,
-    selectFieldsDropdown: false,
+    selectFieldsDropdown: true,
   };
 
   static propTypes = {
@@ -31,16 +30,19 @@ export default class FilterContainer extends PureComponent {
     renderItem: func,
     displayLimit: number,
     showBlankStateData: bool,
-    selectFieldsDropdown: oneOfType([ bool, arrayOf(string) ]),
+    selectFieldsDropdown: bool,
+    selectFieldsDropdownKeys: arrayOf(string),
     placeholder: string,
   };
 
-  state = { filterTerm: '', filteredData: [] };
+  state = { filterTerm: '', filteredData: [], fuseConfig: {} };
 
   componentWillMount() {
-    const { showBlankStateData, displayLimit, data } = this.props;
+    const { showBlankStateData, displayLimit, data, fuseConfig } = this.props;
 
     if (showBlankStateData) this.setFuseFilteredData(this.state.filterTerm, data, displayLimit);
+
+    this.setState({ fuseConfig });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,26 +57,24 @@ export default class FilterContainer extends PureComponent {
   }
 
   getSelectFieldsDropdownKeys() {
-    const { data, selectFieldsDropdown } = this.props;
+    const { data, selectFieldsDropdown, selectFieldsDropdownKeys } = this.props;
 
-    if (Array.isArray(selectFieldsDropdown)) return selectFieldsDropdown;
+    if (!selectFieldsDropdown) return [];
 
-    return Object.keys(data[0]);
+    return selectFieldsDropdownKeys || Object.keys(data[0]);
   }
 
   setFuseFilteredData(filterTerm, data, limit) {
-    const { fuseConfig, showBlankStateData } = this.props;
-
     let dataToDisplay;
 
-    if (!filterTerm && showBlankStateData) {
+    if (!filterTerm && this.props.showBlankStateData) {
       dataToDisplay = data;
 
     } else if (!filterTerm) {
       dataToDisplay = [];
 
     } else {
-      const fuse = new Fuse(data, fuseConfig);
+      const fuse = new Fuse(data, this.state.fuseConfig);
 
       dataToDisplay = fuse.search(filterTerm);
     }
@@ -91,20 +91,23 @@ export default class FilterContainer extends PureComponent {
     this.setState({ filterTerm });
   };
 
+  changeFuseConfigKeys = newKeys => {
+    const newFuseConfig = Object.assign({}, this.state.fuseConfig, { keys: newKeys });
+
+    this.setState({ fuseConfig: newFuseConfig });
+  };
+
   render() {
-    const { renderItem, selectFieldsDropdown, placeholder } = this.props;
+    const { renderItem, placeholder } = this.props;
 
     const filterDisplayProps = {
       renderItem,
       onChange: this.onChange,
+      onKeyChange: this.changeFuseConfigKeys,
       data: this.state.filteredData,
       placeholder,
+      dropdownKeys: this.getSelectFieldsDropdownKeys(),
     };
-
-    console.log(this.props);
-    if (selectFieldsDropdown) {
-      filterDisplayProps.selectFieldsDropdownKeys = this.getSelectFieldsDropdownKeys();
-    }
 
     return <FilterDisplay {...filterDisplayProps} />;
   }
