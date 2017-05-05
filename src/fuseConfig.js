@@ -8,7 +8,7 @@ const fuseConfig = {
   keys: [
     'participantName',
     'clientId',
-    'employeedId',
+    'employeeId',
     'accountNumber',
     'planAdmin',
   ],

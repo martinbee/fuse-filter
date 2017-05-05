@@ -21,7 +21,7 @@ const FilterDisplay = ({
         onKeyChange={onKeyChange}
       />
     </div>
-    <Results data={data} renderItem={renderItem} />
+    <Results data={data} renderItem={renderItem} selectableKeys={selectableKeys} />
   </div>
 );
 
