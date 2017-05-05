@@ -20,6 +20,7 @@ export default class FilterContainer extends PureComponent {
     renderItem: DefaultCard,
     resultsLimit: 12,
     showDefaultData: true,
+    inputPlaceholder: '',
     selectKeys: true,
   };
 
@@ -75,10 +76,8 @@ export default class FilterContainer extends PureComponent {
 
     if (!filterTerm && this.props.showDefaultData) {
       dataToDisplay = data;
-
     } else if (!filterTerm) {
       dataToDisplay = [];
-
     } else {
       const fuse = new Fuse(data, this.state.fuseConfig);
 
@@ -107,12 +106,12 @@ export default class FilterContainer extends PureComponent {
     const { renderItem, inputPlaceholder, selectKeys, fuseConfig } = this.props;
 
     const filterDisplayProps = {
+      data: this.state.filteredData,
       renderItem,
       onChange: this.onChange,
-      onKeyChange: this.changeFuseConfigKeys,
-      data: this.state.filteredData,
       inputPlaceholder,
       selectableKeys: selectKeys ? fuseConfig.keys : [],
+      onKeyChange: this.changeFuseConfigKeys,
     };
 
     return <FilterDisplay {...filterDisplayProps} />;

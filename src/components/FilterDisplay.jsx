@@ -5,12 +5,12 @@ import Results from './Results';
 
 
 const FilterDisplay = ({
+  inputPlaceholder,
   onChange,
+  selectableKeys,
+  onKeyChange,
   data,
   renderItem,
-  selectableKeys,
-  inputPlaceholder,
-  onKeyChange,
 }) => (
   <div>
     <div className="row">

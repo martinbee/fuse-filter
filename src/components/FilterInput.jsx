@@ -1,24 +1,26 @@
 import React from 'react';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 
 import FilterDropdown from './FilterDropdown';
 
+
 const FilterInput = ({ placeholder, onChange, selectableKeys, onKeyChange }) => {
   const inputProps = {
-    placeholder,
-    className: 'App-input',
+    autoFocus: true,
     type: 'text',
+    className: 'App-input',
+    placeholder,
     onChange,
   };
 
-  if (_.isEmpty(selectableKeys)) return <input {...inputProps} />;
+  if (isEmpty(selectableKeys)) return <input {...inputProps} />;
 
   const dropdownProps = { selectableKeys, onKeyChange };
 
   return (
     <div>
       <FilterDropdown {...dropdownProps} />
-      <input autoFocus {...inputProps} />
+      <input {...inputProps} />
     </div>
   );
 };
