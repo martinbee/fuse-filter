@@ -6,7 +6,6 @@ import FilterDropdown from './FilterDropdown';
 
 const FilterInput = ({ placeholder, onChange, selectableKeys, onKeyChange }) => {
   const inputProps = {
-    autoFocus: true,
     type: 'text',
     className: 'App-input',
     placeholder,
