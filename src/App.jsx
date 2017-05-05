@@ -23,7 +23,7 @@ const demoOptions = [
   {
     title: 'Display Limit',
     values: ['12', '24', '50', '100'],
-    stateKey: 'displayLimit',
+    stateKey: 'resultsLimit',
   },
   {
     title: 'Component Type',
@@ -41,7 +41,7 @@ export default class App extends Component {
   state = {
     debounce: '200',
     dataCount: '1000',
-    displayLimit: '12',
+    resultsLimit: '12',
     componentType: 'Filter',
     renderItemFunction: 'PersonCard',
   };
@@ -59,15 +59,15 @@ export default class App extends Component {
       debounce,
       dataCount,
       componentType,
-      displayLimit,
+      resultsLimit,
       renderItemFunction,
     } = this.state;
 
     const filterProps = {
       data: people.slice(0, dataCount),
       debounce: Number(debounce),
-      displayLimit: Number(displayLimit),
-      showBlankStateData: componentType === 'Filter',
+      resultsLimit: Number(resultsLimit),
+      showDefaultData: componentType === 'Filter',
       fuseConfig,
     };
 

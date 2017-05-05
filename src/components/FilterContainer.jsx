@@ -63,7 +63,7 @@ export default class FilterContainer extends PureComponent {
   componentWillReceiveProps(nextProps) {
     const { data, resultsLimit } = this.props;
 
-    const limitChanged = resultsLimit !== nextProps.displaylimit;
+    const limitChanged = resultsLimit !== nextProps.resultsLimit;
     const dataChanged = !_.isEqual(data, nextProps.data);
 
     if (limitChanged || dataChanged) {
