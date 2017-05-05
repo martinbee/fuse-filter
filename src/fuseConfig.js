@@ -8,7 +8,7 @@ const fuseConfig = {
   keys: [
     'accountNumber',
     'name',
-    'ssn',
+    'socialSecurity',
   ],
 };
 
@@ -23,5 +23,5 @@ export default fuseConfig;
     //email: '{{email()}}',
     //phone: '+1 {{phone()}}',
     //address: '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}',
-    //ssn: '{{integer(100,999)}}-{{integer(10,99)}}-{{integer(1000,9999)}}'
+    //socialSecurity: '{{integer(100,999)}}-{{integer(10,99)}}-{{integer(1000,9999)}}'
   //}
