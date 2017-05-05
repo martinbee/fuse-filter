@@ -71,6 +71,7 @@ export default class App extends Component {
       fuseConfig,
     };
 
+    // refactor for multiple example components
     if (renderItemFunction === 'PersonCard') filterProps.renderItem = PersonCard;
 
     return filterProps;

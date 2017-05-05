@@ -8,17 +8,17 @@ const FilterDisplay = ({
   onChange,
   data,
   renderItem,
-  dropdownKeys,
-  placeholder,
+  selectableKeys,
+  inputPlaceholder,
   onKeyChange,
 }) => (
   <div>
     <div className="row">
       <FilterInput
+        placeholder={inputPlaceholder}
         onChange={onChange}
+        selectableKeys={selectableKeys}
         onKeyChange={onKeyChange}
-        dropdownKeys={dropdownKeys}
-        placeholder={placeholder}
       />
     </div>
     <Results data={data} renderItem={renderItem} />

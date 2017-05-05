@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import FilterDropdown from './FilterDropdown';
 
-const FilterInput = ({ placeholder, onChange, dropdownKeys, onKeyChange }) => {
+const FilterInput = ({ placeholder, onChange, selectableKeys, onKeyChange }) => {
   const inputProps = {
     placeholder,
     className: 'App-input',
@@ -11,14 +11,14 @@ const FilterInput = ({ placeholder, onChange, dropdownKeys, onKeyChange }) => {
     onChange,
   };
 
-  if (_.isEmpty(dropdownKeys)) return <input {...inputProps} />;
+  if (_.isEmpty(selectableKeys)) return <input {...inputProps} />;
 
-  const dropdownProps = { dropdownKeys, onKeyChange };
+  const dropdownProps = { selectableKeys, onKeyChange };
 
   return (
     <div>
       <FilterDropdown {...dropdownProps} />
-      <input {...inputProps} />
+      <input autoFocus {...inputProps} />
     </div>
   );
 };

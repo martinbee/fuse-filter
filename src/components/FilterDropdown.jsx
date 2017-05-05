@@ -12,7 +12,8 @@ export default class FilterDropdown extends PureComponent {
   }
 
   getOptions() {
-    return this.props.dropdownKeys.map(key => ({ label: _.startCase(key), value: key }));
+    return this.props.selectableKeys
+      .map(key => ({ label: _.startCase(key), value: key }));
   }
 
   onChange = selectedKeys => {

@@ -18,56 +18,62 @@ export default class FilterContainer extends PureComponent {
   static defaultProps = {
     debounce: 400,
     renderItem: DefaultCard,
-    displayLimit: 12,
-    showBlankStateData: true,
-    selectFieldsDropdown: true,
+    resultsLimit: 12,
+    showDefaultData: true,
+    selectKeys: true,
   };
 
   static propTypes = {
-    debounce: number,
     data: arrayOf(object).isRequired,
-    fuseConfig: object.isRequired,
+    fuseConfig: (props, propName, componentName) => {
+      const { fuseConfig } = props;
+
+      if (!fuseConfig) {
+        return new Error(
+          `Required prop \`${propName}\` was not specified in \`${componentName}\`.`
+        );
+      }
+
+      if (!_.isArray(fuseConfig.keys)) {
+        return new Error(
+          `Invalid prop \`${propName}\` supplied to \`${componentName}\`. ` +
+          `Expected \`${propName}.keys\` to be an array.`
+        );
+      }
+    },
+    debounce: number,
     renderItem: func,
-    displayLimit: number,
-    showBlankStateData: bool,
-    selectFieldsDropdown: bool,
-    selectFieldsDropdownKeys: arrayOf(string),
-    placeholder: string,
+    resultsLimit: number,
+    showDefaultData: bool,
+    inputPlaceholder: string,
+    selectKeys: bool,
   };
 
   state = { filterTerm: '', filteredData: [], fuseConfig: {} };
 
   componentWillMount() {
-    const { showBlankStateData, displayLimit, data, fuseConfig } = this.props;
+    const { showDefaultData, resultsLimit, data, fuseConfig } = this.props;
 
-    if (showBlankStateData) this.setFuseFilteredData(this.state.filterTerm, data, displayLimit);
+    if (showDefaultData) this.setFuseFilteredData(this.state.filterTerm, data, resultsLimit);
 
     this.setState({ fuseConfig });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { data, displayLimit } = this.props;
+    const { data, resultsLimit } = this.props;
 
-    const limitChanged = displayLimit !== nextProps.displaylimit;
+    const limitChanged = resultsLimit !== nextProps.displaylimit;
     const dataChanged = !_.isEqual(data, nextProps.data);
 
     if (limitChanged || dataChanged) {
-      this.setFuseFilteredData(this.state.filterTerm, nextProps.data, nextProps.displayLimit);
+      this.setFuseFilteredData(this.state.filterTerm, nextProps.data, nextProps.resultsLimit);
     }
-  }
-
-  getSelectFieldsDropdownKeys() {
-    const { data, selectFieldsDropdown, selectFieldsDropdownKeys } = this.props;
-
-    if (!selectFieldsDropdown) return [];
-
-    return selectFieldsDropdownKeys || Object.keys(data[0]);
   }
 
   setFuseFilteredData(filterTerm, data, limit) {
     let dataToDisplay;
 
-    if (!filterTerm && this.props.showBlankStateData) {
+    if (!filterTerm && this.props.showDefaultData) {
       dataToDisplay = data;
 
     } else if (!filterTerm) {
@@ -83,11 +89,11 @@ export default class FilterContainer extends PureComponent {
   }
 
   onChange = (evt) => {
-    const { debounce, data, displayLimit } = this.props;
+    const { debounce, data, resultsLimit } = this.props;
 
     const filterTerm = evt.target.value;
 
-    _.debounce(() => this.setFuseFilteredData(filterTerm, data, displayLimit), debounce)();
+    _.debounce(() => this.setFuseFilteredData(filterTerm, data, resultsLimit), debounce)();
     this.setState({ filterTerm });
   };
 
@@ -98,15 +104,15 @@ export default class FilterContainer extends PureComponent {
   };
 
   render() {
-    const { renderItem, placeholder } = this.props;
+    const { renderItem, inputPlaceholder, selectKeys, fuseConfig } = this.props;
 
     const filterDisplayProps = {
       renderItem,
       onChange: this.onChange,
       onKeyChange: this.changeFuseConfigKeys,
       data: this.state.filteredData,
-      placeholder,
-      dropdownKeys: this.getSelectFieldsDropdownKeys(),
+      inputPlaceholder,
+      selectableKeys: selectKeys ? fuseConfig.keys : [],
     };
 
     return <FilterDisplay {...filterDisplayProps} />;
