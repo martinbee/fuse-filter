@@ -38,11 +38,15 @@ filtered data item. This function is mapped over and provided each dataItem, its
 index, and the 'fuseConfig.keys' if 'selectKeys' is true.
 
 ##### renderItem Examples:
-- React component (see DefaultCard usage in demo)
+- Functional React component (see DefaultCard usage in demo)
 - Function that takes dataItem and renders react.
-```javascript
-(dataItem, index, fuseConfigKeys) => <div key={dataItem.uniqueKey}>{dataItem.value}</div>;
-```
+  ```javascript
+  (dataItem, index, fuseConfigKeys) => <div key={dataItem.uniqueKey}>{dataItem.value}</div>;
+  ```
+- Function that renders a React component using the given arguments
+  ```javascript
+  dataItem => <ExampleCard key={dataItem._id} dataItem={dataItem} />;
+  ```
 
 #### resultsLimit:
 The number of results that should be shown on each filter.
