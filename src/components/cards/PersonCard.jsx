@@ -1,5 +1,7 @@
 import React from 'react';
-
+import {
+  string,
+} from 'prop-types';
 
 const PersonCard = ({
   _id,
@@ -20,5 +22,12 @@ const PersonCard = ({
   </div>
 );
 
+PersonCard.propTypes = {
+  _id: string.isRequired,
+  accountNumber: string,
+  name: string,
+  email: string,
+  socialSecurity: string,
+};
 
 export default PersonCard;

@@ -1,8 +1,13 @@
 import React from 'react';
+import {
+  string,
+  object,
+  func,
+  arrayOf,
+} from 'prop-types';
 
 import FilterInput from './FilterInput';
 import Results from './Results';
-
 
 const FilterDisplay = ({
   inputPlaceholder,
@@ -24,5 +29,14 @@ const FilterDisplay = ({
     <Results data={data} renderItem={renderItem} selectableKeys={selectableKeys} />
   </div>
 );
+
+FilterDisplay.propTypes = {
+  inputPlaceholder: string,
+  onChange: func.isRequired,
+  selectableKeys: arrayOf(string).isRequired,
+  onKeyChange: func.isRequired,
+  data: arrayOf(object).isRequired,
+  renderItem: func.isRequired,
+};
 
 export default FilterDisplay;

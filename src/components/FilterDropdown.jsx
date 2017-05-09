@@ -1,16 +1,26 @@
 import React, { PureComponent } from 'react';
+import {
+  string,
+  func,
+  arrayOf,
+} from 'prop-types';
 import { startCase } from 'lodash';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 export default class FilterDropdown extends PureComponent {
+  static propTypes = {
+    selectableKeys: arrayOf(string).isRequired,
+    onKeyChange: func.isRequired,
+  };
+
   state = { selectedValues: [] };
 
   componentWillMount() {
     this.setState({ selectedKeys: this.getOptions() });
   }
 
-  onChange = selectedKeys => {
+  onChange = (selectedKeys) => {
     this.setState({ selectedKeys });
 
     this.props.onKeyChange(selectedKeys.map(key => key.value));
