@@ -6,10 +6,10 @@ import {
   arrayOf,
 } from 'prop-types';
 
-import FilterInput from './FilterInput';
-import Results from './Results';
+import Input from '../Input';
+import Results from '../Results';
 
-const FilterDisplay = ({
+const Display = ({
   inputPlaceholder,
   onChange,
   selectableKeys,
@@ -19,7 +19,7 @@ const FilterDisplay = ({
 }) => (
   <div>
     <div className="row">
-      <FilterInput
+      <Input
         placeholder={inputPlaceholder}
         onChange={onChange}
         selectableKeys={selectableKeys}
@@ -30,7 +30,7 @@ const FilterDisplay = ({
   </div>
 );
 
-FilterDisplay.propTypes = {
+Display.propTypes = {
   inputPlaceholder: string,
   onChange: func.isRequired,
   selectableKeys: arrayOf(string).isRequired,
@@ -39,4 +39,4 @@ FilterDisplay.propTypes = {
   renderItem: func.isRequired,
 };
 
-export default FilterDisplay;
+export default Display;

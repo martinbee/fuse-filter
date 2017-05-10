@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
 import './App.css';
-import fuseConfig from './fuseConfig';
-import people from './data/10000.json';
+import fuseConfig from '../../fuseConfig';
+import people from '../../data/10000.json';
 
-import AppHeader from './components/AppHeader';
-import FilterContainer from './components/FilterContainer';
-import PersonCard from './components/cards/PersonCard';
+import AppHeader from '../AppHeader';
+import FilterContainer from '../Filter';
+import PersonCard from '../PersonCard';
 
 
 const demoOptions = [

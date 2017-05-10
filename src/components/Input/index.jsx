@@ -6,9 +6,9 @@ import {
   arrayOf,
 } from 'prop-types';
 
-import FilterDropdown from './FilterDropdown';
+import Dropdown from '../Dropdown';
 
-const FilterInput = ({ placeholder, onChange, selectableKeys, onKeyChange }) => {
+const Input = ({ placeholder, onChange, selectableKeys, onKeyChange }) => {
   const inputProps = {
     type: 'text',
     className: 'App-input',
@@ -22,17 +22,17 @@ const FilterInput = ({ placeholder, onChange, selectableKeys, onKeyChange }) => 
 
   return (
     <div>
-      <FilterDropdown {...dropdownProps} />
+      <Dropdown {...dropdownProps} />
       <input {...inputProps} />
     </div>
   );
 };
 
-FilterInput.propTypes = {
+Input.propTypes = {
   placeholder: string,
   onChange: func.isRequired,
   selectableKeys: arrayOf(string).isRequired,
   onKeyChange: func.isRequired,
 };
 
-export default FilterInput;
+export default Input;

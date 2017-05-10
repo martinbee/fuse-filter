@@ -8,7 +8,7 @@ import { startCase } from 'lodash';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-export default class FilterDropdown extends PureComponent {
+export default class Dropdown extends PureComponent {
   static propTypes = {
     selectableKeys: arrayOf(string).isRequired,
     onKeyChange: func.isRequired,

@@ -10,8 +10,8 @@ import {
   arrayOf,
 } from 'prop-types';
 
-import DefaultCard from './cards/DefaultCard';
-import FilterDisplay from './FilterDisplay';
+import DefaultCard from '../DefaultCard';
+import Display from './Display';
 
 export default class FilterContainer extends PureComponent {
   static defaultProps = {
@@ -106,7 +106,7 @@ export default class FilterContainer extends PureComponent {
   render() {
     const { renderItem, inputPlaceholder, selectKeys, fuseConfig } = this.props;
 
-    const filterDisplayProps = {
+    const displayProps = {
       data: this.state.filteredData,
       renderItem,
       onChange: this.onChange,
@@ -115,6 +115,6 @@ export default class FilterContainer extends PureComponent {
       onKeyChange: this.changeFuseConfigKeys,
     };
 
-    return <FilterDisplay {...filterDisplayProps} />;
+    return <Display {...displayProps} />;
   }
 }
