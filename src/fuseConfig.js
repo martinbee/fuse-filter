@@ -6,11 +6,9 @@ const fuseConfig = {
   maxPatternLength: 32,
   minMatchCharLength: 3,
   keys: [
-    'participantName',
-    //'clientId',
-    //'employeedId',
-    //'accountNumber',
-    //'planAdmin',
+    'accountNumber',
+    'name',
+    'socialSecurity',
   ],
 };
 

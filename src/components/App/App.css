@@ -1,0 +1,74 @@
+
+body {
+  background: #eef1f7;
+  margin: 0;
+  padding: 0;
+  color: #333333;
+  font-family: sans-serif;
+}
+
+textarea, input, button { outline: none; }
+
+.filter{
+  display: inline-block;
+  margin: 5px 10px 10px 10px;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #333;
+  padding: 10px;
+  color: #ffffff;
+}
+
+.App-filter {
+  background-color: #444;
+  padding: 15px;
+  color: #ffffff;
+}
+
+.App-input{
+  width: 100%;
+  padding: 30px 40px;
+  font-size: 24px;
+  margin: 0px auto 35px auto;
+  border: 2px solid #dddddd;
+}
+.App-input:hover{
+  border: 2px solid #222222;
+}
+
+.margin-bottom-1{
+  margin-bottom: 32px;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #dddddd;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #dddddd;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #dddddd;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #dddddd;
+}
+
+.card{
+  transition: 0.3s ease-out;
+  font-size: 16px;
+  -webkit-backface-visibility: hidden;
+  padding: 30px;
+  background: #ffffff;
+  color: #222222;
+  box-shadow: 0 4px 8px 0 rgba(144,159,179,.4);
+}
+.card:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+  box-shadow: 0 6px 8px 0 rgba(144,159,179,.8);
+}
