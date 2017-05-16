@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 
 import './App.css';
 import fuseConfig from './fuseConfig';
@@ -44,6 +45,7 @@ export default class App extends Component {
     resultsLimit: '12',
     componentType: 'Filter',
     renderItemFunction: 'PersonCard',
+    optionsIsActive: true,
   };
 
   setDemoOption(evt, stateKey) {
@@ -77,7 +79,36 @@ export default class App extends Component {
     return filterProps;
   }
 
-  renderOptionInputs() {
+  toggleOptions = () => this.setState({ optionsIsActive: !this.state.optionsIsActive });
+
+  renderOptionsContainer() {
+    const { optionsIsActive } = this.state;
+
+    const containerClasses = classNames(
+      'App-options',
+      { 'options-is-active': optionsIsActive },
+    );
+    const buttonClasses = classNames(
+      'options-toggle-btn',
+      { 'btn-is-active': optionsIsActive },
+    );
+
+    const toggleOptionsButtonContent = optionsIsActive ? '^' : 'v';
+
+    return (
+      <div className={containerClasses}>
+        {this.renderOptionsInputs()}
+        <button
+          className={buttonClasses}
+          onClick={this.toggleOptions}
+        >
+          {toggleOptionsButtonContent}
+        </button>
+      </div>
+    );
+  }
+
+  renderOptionsInputs() {
     return demoOptions.map(({ title, values, stateKey }) => (
       <div key={stateKey} className="filter">
         <div>
@@ -96,9 +127,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <AppHeader />
-        <div className="App-filter">
-          {this.renderOptionInputs()}
-        </div>
+        {this.renderOptionsContainer()}
         <FilterContainer {...filterProps} />
       </div>
     );
