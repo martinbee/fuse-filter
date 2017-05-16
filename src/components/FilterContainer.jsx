@@ -15,7 +15,6 @@ import FilterDisplay from './FilterDisplay';
 
 export default class FilterContainer extends PureComponent {
   static defaultProps = {
-    debounce: 400,
     renderItem: DefaultCard,
     resultsLimit: 12,
     showDefaultData: true,
@@ -43,7 +42,6 @@ export default class FilterContainer extends PureComponent {
 
       return undefined;
     },
-    debounce: number,
     renderItem: func,
     resultsLimit: number,
     showDefaultData: bool,
@@ -73,11 +71,11 @@ export default class FilterContainer extends PureComponent {
   }
 
   onChange = (evt) => {
-    const { debounce, data, resultsLimit } = this.props;
+    const { data, resultsLimit } = this.props;
 
     const filterTerm = evt.target.value;
 
-    _.debounce(() => this.setFuseFilteredData(filterTerm, data, resultsLimit), debounce)();
+    _.debounce(() => this.setFuseFilteredData(filterTerm, data, resultsLimit), 350)();
     this.setState({ filterTerm });
   };
 
