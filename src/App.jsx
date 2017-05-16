@@ -12,11 +12,6 @@ import PersonCard from './components/cards/PersonCard';
 
 const demoOptions = [
   {
-    title: 'Debounce',
-    values: ['200', '250', '300'],
-    stateKey: 'debounce',
-  },
-  {
     title: 'Data Item Count',
     values: ['1000', '5000', '10000'],
     stateKey: 'dataCount',
@@ -40,7 +35,6 @@ const demoOptions = [
 
 export default class App extends Component {
   state = {
-    debounce: '200',
     dataCount: '1000',
     resultsLimit: '12',
     componentType: 'Filter',
@@ -58,7 +52,6 @@ export default class App extends Component {
 
   getFilterProps() {
     const {
-      debounce,
       dataCount,
       componentType,
       resultsLimit,
@@ -67,7 +60,6 @@ export default class App extends Component {
 
     const filterProps = {
       data: people.slice(0, dataCount),
-      debounce: Number(debounce),
       resultsLimit: Number(resultsLimit),
       showDefaultData: componentType === 'Filter',
       fuseConfig,
