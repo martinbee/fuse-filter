@@ -17,7 +17,7 @@ const FilterDisplay = ({
   data,
   renderItem,
 }) => (
-  <div>
+  <div className="container-fluid">
     <div className="row">
       <FilterInput
         placeholder={inputPlaceholder}
