@@ -1,6 +1,6 @@
 const fuseConfig = {
   shouldSort: true,
-  threshold: 0.3,
+  threshold: 0.35,
   location: 0,
   distance: 80,
   maxPatternLength: 32,

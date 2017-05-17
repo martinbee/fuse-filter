@@ -79,11 +79,11 @@ export default class App extends Component {
 
     const containerClasses = classNames(
       'App-options',
-      { 'options-is-active': optionsIsActive },
+      { 'options-is-active': !optionsIsActive },
     );
     const buttonClasses = classNames(
       'options-toggle-btn',
-      { 'btn-is-active': optionsIsActive },
+      { 'btn-is-active': !optionsIsActive },
     );
 
     const toggleOptionsButtonContent = optionsIsActive ? 'Hide Options' : 'Show Options';
