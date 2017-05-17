@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { startCase } from 'lodash';
 
 import './App.css';
 import fuseConfig from './fuseConfig';
@@ -108,7 +109,7 @@ export default class App extends Component {
           {title}
         </div>
         <select onChange={evt => this.setDemoOption(evt, stateKey)}>
-          {values.map(value => <option key={value} value={value}>{value}</option>)}
+          {values.map(value => <option key={value} value={value}>{startCase(value)}</option>)}
         </select>
       </div>
     ));
