@@ -7,6 +7,8 @@ body {
   font-family: sans-serif;
 }
 
+* { outline: 0; }
+
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #dddddd;
 }
@@ -91,24 +93,24 @@ textarea, input, button { outline: none; }
   border: none;
 }
 
-.Select--multi{
+/*.Select--multi{
   width: 25%;
   float: left;
   display: none;
-}
-.Select--multi .Select-control{
+}*/
+/*.Select--multi .Select-control{
   height: 60px;
   border: 1px solid #ccc;
   border-radius: 0;
-}
-.App-options .Select--multi .Select-value {
+}*/
+/*.App-options .Select--multi .Select-value {
   margin-top: 15px !important;
-}
+}*/
 
 .App-input{
   width: calc(100% - 60px);
   height: 60px;
-  padding: 0 20px;
+  padding: 0 20px 0 250px;
   font-size: 21px;
   margin: 27px auto 25px auto;
   border: 2px solid #c2c2c2;
@@ -124,14 +126,43 @@ textarea, input, button { outline: none; }
   color: #dddddd;
 }
 
+.Select--single{
+  margin-top: -38px;
+  position: absolute;
+  left: 35px;
+  top: 74px;
+  width: 200px;
+}
+.Select--single .Select-control{
+  border: none !important;
+}
+.Select--single .Select-control:hover{
+  box-shadow: none !important;
+}
+
+
 @media (max-width: 998px) {
   .App-input{
     width: calc(100% - 20px);
     height: 50px;
-    padding: 0 15px;
+    padding: 0 15px 0 140px;
     font-size: 18px;
     margin: 12px auto 12px auto;
   }
+
+  .Select--single{
+    margin-top: -36px;
+    left: 12px;
+    top: 54px;
+    width: 140px;
+  }
+  .Select--single .Select-control{
+    border: none !important;
+  }
+  .Select--single .Select-control:hover{
+    box-shadow: none !important;
+  }
+
   .card{
     padding: 15px 2px;
     margin-bottom: 8px;
