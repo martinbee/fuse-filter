@@ -39,7 +39,7 @@ export default class App extends Component {
     resultsLimit: '12',
     componentType: 'Filter',
     renderItemFunction: 'PersonCard',
-    optionsIsActive: true,
+    optionsIsActive: false,
   };
 
   setDemoOption(evt, stateKey) {

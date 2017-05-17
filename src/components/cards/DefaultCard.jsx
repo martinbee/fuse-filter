@@ -10,7 +10,7 @@ const DefaultCard = (dataItem, index, keys) => {
   );
 
   return (
-    <div key={customKey} className="col-md-3 margin-bottom-1">
+    <div key={customKey} className="col-lg-3 col-md-4 col-sm-6 margin-bottom-1">
       <div className="card card-lg rounded-md text-center border zoom hover">
         <div className="card-block">
           {renderDataValues()}
