@@ -4,7 +4,7 @@ import {
   func,
   arrayOf,
 } from 'prop-types';
-import { startCase } from 'lodash';
+import { startCase, isEmpty } from 'lodash';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -25,7 +25,7 @@ export default class FilterDropdown extends PureComponent {
       onKeyChange([selectedKey.value]);
     }
 
-    this.setState({ selectedKey });
+    this.setState({ selectedKey: !isEmpty(selectedKey) ? selectedKey : '' });
   }
 
   getOptions() {
@@ -43,6 +43,7 @@ export default class FilterDropdown extends PureComponent {
       value: this.state.selectedKey,
       onChange: this.onChange,
       noResultsText: 'No Match Found',
+      clearable: false,
     };
 
     return <Select {...selectProps} />;
