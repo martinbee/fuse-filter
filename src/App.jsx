@@ -93,7 +93,7 @@ export default class App extends Component {
       { 'btn-is-active': optionsIsActive },
     );
 
-    const toggleOptionsButtonContent = optionsIsActive ? '^' : 'v';
+    const toggleOptionsButtonContent = optionsIsActive ? 'Hide Options' : 'Show Options';
 
     return (
       <div className={containerClasses}>

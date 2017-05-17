@@ -15,8 +15,7 @@ const PersonCard = ({
       <div className="card-block">
         <h5>{name}</h5>
         <p>{email}</p>
-        <p>{socialSecurity}</p>
-        <p>{accountNumber}</p>
+        <p>{socialSecurity} {accountNumber}</p>
       </div>
     </div>
   </div>

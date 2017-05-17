@@ -7,44 +7,6 @@ body {
   font-family: sans-serif;
 }
 
-textarea, input, button { outline: none; }
-
-.filter{
-  display: inline-block;
-  margin: 5px 10px 10px 10px;
-}
-
-.App {
-  text-align: center;
-}
-
-.App-header {
-  background-color: #333;
-  padding: 10px;
-  color: #ffffff;
-}
-
-.App-options {
-  background-color: #444;
-  padding: 15px;
-  color: #ffffff;
-}
-
-.App-input{
-  width: 100%;
-  padding: 30px 40px;
-  font-size: 24px;
-  margin: 0px auto 35px auto;
-  border: 2px solid #dddddd;
-}
-.App-input:hover{
-  border: 2px solid #222222;
-}
-
-.margin-bottom-1{
-  margin-bottom: 32px;
-}
-
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #dddddd;
 }
@@ -58,13 +20,16 @@ textarea, input, button { outline: none; }
   color: #dddddd;
 }
 
+textarea, input, button { outline: none; }
+
 .card{
   transition: 0.3s ease-out;
   font-size: 16px;
   -webkit-backface-visibility: hidden;
-  padding: 30px;
+  padding: 20px 25px;
   background: #ffffff;
   color: #222222;
+  margin-bottom: 26px;
   box-shadow: 0 4px 8px 0 rgba(144,159,179,.4);
 }
 .card:hover{
@@ -72,3 +37,108 @@ textarea, input, button { outline: none; }
   cursor: pointer;
   box-shadow: 0 6px 8px 0 rgba(144,159,179,.8);
 }
+.card h5{
+  margin: 6px 0 6px 0;
+  padding: 0;
+}
+.card p{
+  margin: 0 0 6px 0;
+  padding: 0;
+}
+
+.App-options {
+  background-color: #444;
+  color: #ffffff;
+  transition: 0.3s ease-in-out;
+  max-height: 0;
+}
+
+/*.App-options .filter{
+  margin: 20px 20px;
+}*/
+.App-options .filter{
+  display: none;
+  margin: 10px 10px 15px 10px;
+}
+
+.App-options.options-is-active{
+  max-height: 350px;
+}
+.Select-multi-value-wrapper{
+  height: 58px;
+}
+.App-options.options-is-active .filter{
+  display: inline-block;
+}
+
+/*.margin-bottom-1{
+
+}*/
+
+.options-toggle-btn{
+  background: #333333;
+  border: none;
+}
+
+.Select--multi{
+  width: 25%;
+  float: left;
+  display: none;
+}
+.Select--multi .Select-control{
+  height: 60px;
+  border: 1px solid #ccc;
+  border-radius: 0;
+}
+.App-options .Select--multi .Select-value {
+  margin-top: 15px !important;
+}
+
+.App-input{
+  width: calc(100% - 60px);
+  height: 60px;
+  padding: 0 20px;
+  font-size: 21px;
+  margin: 20px auto 35px auto;
+  border: 1px solid #dddddd;
+}
+
+.App-input:hover{
+  border: 2px solid #222222;
+}
+
+.options-toggle-btn{
+  position: absolute;
+  top: 19px;
+  right: 20px;
+  color: #dddddd;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #333;
+  padding: 15px;
+  color: #ffffff;
+}
+
+.App-header h2 {
+  font-size: 21px;
+  margin: 0;
+}
+
+
+
+
+
+
+/*
+
+
+*/
+
+
+/*
+*/

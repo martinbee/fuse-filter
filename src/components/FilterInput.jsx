@@ -12,7 +12,7 @@ const FilterInput = ({ placeholder, onChange, selectableKeys, onKeyChange }) => 
   const inputProps = {
     type: 'text',
     className: 'App-input',
-    placeholder,
+    placeholder: 'Enter keywords...',
     onChange,
   };
 
