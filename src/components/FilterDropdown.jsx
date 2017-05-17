@@ -14,32 +14,35 @@ export default class FilterDropdown extends PureComponent {
     onKeyChange: func.isRequired,
   };
 
-  state = { selectedValues: [] };
+  state = { selectedKey: { label: 'All', value: 'all' } };
 
-  componentWillMount() {
-    this.setState({ selectedKeys: this.getOptions() });
-  }
+  onChange = (selectedKey) => {
+    const { onKeyChange, selectableKeys } = this.props;
 
-  onChange = (selectedKeys) => {
-    this.setState({ selectedKeys });
+    if (selectedKey.value === 'all') {
+      onKeyChange(selectableKeys);
+    } else {
+      onKeyChange([selectedKey.value]);
+    }
 
-    this.props.onKeyChange(selectedKeys.map(key => key.value));
+    this.setState({ selectedKey });
   }
 
   getOptions() {
     return this.props.selectableKeys
-      .map(key => ({ label: startCase(key), value: key }));
+      .map(key => ({ label: startCase(key), value: key }))
+      .concat({ label: 'All', value: 'all' });
   }
 
   render() {
     const options = this.getOptions();
 
     const selectProps = {
-      multi: true,
-      placeholder: 'Search by',
+      placeholder: 'Search By',
       options,
-      value: this.state.selectedKeys,
+      value: this.state.selectedKey,
       onChange: this.onChange,
+      noResultsText: 'No Match Found',
     };
 
     return <Select {...selectProps} />;
