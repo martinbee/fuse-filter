@@ -1,4 +1,4 @@
-# Fuse Filter Demo
+# Realtime Search Demo using Fuse.js
 
 Fuse Filter is a wrapper component for [fuse.js](http://fusejs.io/ "Fuse.js").
 Fuse.js is a library that provides configurable and quick filtering of data.
