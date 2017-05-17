@@ -71,6 +71,7 @@ export default class App extends Component {
       resultsLimit: Number(resultsLimit),
       showDefaultData: componentType === 'Filter',
       fuseConfig,
+      inputPlaceholder: 'Enter keywords...',
     };
 
     // refactor for multiple example components

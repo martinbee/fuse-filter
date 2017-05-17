@@ -31,6 +31,7 @@ textarea, input, button { outline: none; }
   color: #222222;
   margin-bottom: 26px;
   box-shadow: 0 4px 8px 0 rgba(144,159,179,.4);
+  overflow: hidden;
 }
 .card:hover{
   transform: scale(1.05);
@@ -46,21 +47,29 @@ textarea, input, button { outline: none; }
   padding: 0;
 }
 
+.App {
+  text-align: center;
+}
+.App-header {
+  background-color: #333;
+  padding: 15px;
+  color: #ffffff;
+}
+.App-header h2 {
+  font-size: 21px;
+  margin: 0;
+}
+
 .App-options {
   background-color: #444;
   color: #ffffff;
   transition: 0.3s ease-in-out;
   max-height: 0;
 }
-
-/*.App-options .filter{
-  margin: 20px 20px;
-}*/
 .App-options .filter{
   display: none;
   margin: 10px 10px 15px 10px;
 }
-
 .App-options.options-is-active{
   max-height: 350px;
 }
@@ -70,11 +79,6 @@ textarea, input, button { outline: none; }
 .App-options.options-is-active .filter{
   display: inline-block;
 }
-
-/*.margin-bottom-1{
-
-}*/
-
 .options-toggle-btn{
   background: #333333;
   border: none;
@@ -102,7 +106,6 @@ textarea, input, button { outline: none; }
   margin: 20px auto 35px auto;
   border: 1px solid #dddddd;
 }
-
 .App-input:hover{
   border: 2px solid #222222;
 }
@@ -113,32 +116,3 @@ textarea, input, button { outline: none; }
   right: 20px;
   color: #dddddd;
 }
-
-.App {
-  text-align: center;
-}
-
-.App-header {
-  background-color: #333;
-  padding: 15px;
-  color: #ffffff;
-}
-
-.App-header h2 {
-  font-size: 21px;
-  margin: 0;
-}
-
-
-
-
-
-
-/*
-
-
-*/
-
-
-/*
-*/
