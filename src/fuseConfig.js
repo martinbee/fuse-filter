@@ -1,16 +1,14 @@
 const fuseConfig = {
   shouldSort: true,
-  threshold: 0.3,
+  threshold: 0.35,
   location: 0,
-  distance: 100,
+  distance: 80,
   maxPatternLength: 32,
   minMatchCharLength: 3,
   keys: [
-    'participantName',
-    //'clientId',
-    //'employeedId',
-    //'accountNumber',
-    //'planAdmin',
+    'accountNumber',
+    'name',
+    'socialSecurity',
   ],
 };
 

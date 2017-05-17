@@ -8,7 +8,6 @@ import {
   object,
   func,
   arrayOf,
-  shape,
 } from 'prop-types';
 
 import DefaultCard from './cards/DefaultCard';
@@ -16,56 +15,79 @@ import FilterDisplay from './FilterDisplay';
 
 export default class FilterContainer extends PureComponent {
   static defaultProps = {
-    debounce: 400,
-    title: 'Fuse Filter',
     renderItem: DefaultCard,
-    displayOptions: {
-      limit: 12,
-      showBlankStateData: true,
-    },
+    resultsLimit: 12,
+    showDefaultData: true,
+    inputPlaceholder: '',
+    selectKeys: true,
   };
 
   static propTypes = {
-    debounce: number,
-    title: string,
     data: arrayOf(object).isRequired,
-    fuseConfig: object.isRequired,
+    fuseConfig: (props, propName, componentName) => {
+      const { fuseConfig } = props;
+
+      if (!fuseConfig) {
+        return new Error(
+          `Required prop \`${propName}\` was not specified in \`${componentName}\`.`,
+        );
+      }
+
+      if (!_.isArray(fuseConfig.keys)) {
+        return new Error(
+          `Invalid prop \`${propName}\` supplied to \`${componentName}\`. ` +
+          `Expected \`${propName}.keys\` to be an array.`,
+        );
+      }
+
+      return undefined;
+    },
     renderItem: func,
-    displayOptions: shape({
-      limit: number,
-      showBlankStateData: bool,
-    }),
+    resultsLimit: number,
+    showDefaultData: bool,
+    inputPlaceholder: string,
+    selectKeys: bool,
   };
 
-  state = { filterTerm: '', filteredData: [] };
+  state = { filterTerm: '', filteredData: [], fuseConfig: {} };
 
   componentWillMount() {
-    const { displayOptions: { showBlankStateData, limit }, data } = this.props;
+    const { showDefaultData, resultsLimit, data, fuseConfig } = this.props;
 
-    if (showBlankStateData) this.setFuseFilteredData(this.state.filterTerm, data, limit);
+    if (showDefaultData) this.setFuseFilteredData(this.state.filterTerm, data, resultsLimit);
+
+    this.setState({ fuseConfig });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { data, displayOptions: { limit } } = this.props;
+    const { data, resultsLimit } = this.props;
 
-    const nextPropsLimit = _.get(nextProps.displayOptions, 'limit');
-    const limitChanged = limit !== nextPropsLimit;
+    const limitChanged = resultsLimit !== nextProps.resultsLimit;
     const dataChanged = !_.isEqual(data, nextProps.data);
 
     if (limitChanged || dataChanged) {
-      this.setFuseFilteredData(this.state.filterTerm, nextProps.data, nextPropsLimit);
+      this.setFuseFilteredData(this.state.filterTerm, nextProps.data, nextProps.resultsLimit);
     }
   }
 
-  setFuseFilteredData(filterTerm, data, limit) {
-    const { fuseConfig, displayOptions: { showBlankStateData } } = this.props;
+  onChange = (evt) => {
+    const { data, resultsLimit } = this.props;
 
+    const filterTerm = evt.target.value;
+
+    _.debounce(() => this.setFuseFilteredData(filterTerm, data, resultsLimit), 350)();
+    this.setState({ filterTerm });
+  };
+
+  setFuseFilteredData(filterTerm, data, limit) {
     let dataToDisplay;
 
-    if (!filterTerm && showBlankStateData) {
+    if (!filterTerm && this.props.showDefaultData) {
       dataToDisplay = data;
+    } else if (!filterTerm) {
+      dataToDisplay = [];
     } else {
-      const fuse = new Fuse(data, fuseConfig);
+      const fuse = new Fuse(data, this.state.fuseConfig);
 
       dataToDisplay = fuse.search(filterTerm);
     }
@@ -73,25 +95,24 @@ export default class FilterContainer extends PureComponent {
     this.setState({ filteredData: dataToDisplay.slice(0, limit) });
   }
 
-  onChange = (evt) => {
-    const { debounce, data, displayOptions: { limit } } = this.props;
+  changeFuseConfigKeys = (newKeys) => {
+    const newFuseConfig = Object.assign({}, this.state.fuseConfig, { keys: newKeys });
 
-    const filterTerm = evt.target.value;
-
-    _.debounce(() => this.setFuseFilteredData(filterTerm, data, limit), debounce)();
-    this.setState({ filterTerm });
+    this.setState({ fuseConfig: newFuseConfig });
   };
 
   render() {
-    const { title, renderItem } = this.props;
+    const { renderItem, inputPlaceholder, selectKeys, fuseConfig } = this.props;
 
-    return (
-      <FilterDisplay
-        title={title}
-        onChange={this.onChange}
-        data={this.state.filteredData}
-        renderItem={renderItem}
-      />
-    );
+    const filterDisplayProps = {
+      data: this.state.filteredData,
+      renderItem,
+      onChange: this.onChange,
+      inputPlaceholder,
+      selectableKeys: selectKeys ? fuseConfig.keys : [],
+      onKeyChange: this.changeFuseConfigKeys,
+    };
+
+    return <FilterDisplay {...filterDisplayProps} />;
   }
 }

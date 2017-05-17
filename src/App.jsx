@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
+import { startCase } from 'lodash';
 
 import './App.css';
 import fuseConfig from './fuseConfig';
@@ -11,19 +13,14 @@ import PersonCard from './components/cards/PersonCard';
 
 const demoOptions = [
   {
-    title: 'Debounce',
-    values: ['100', '350', '600', '1000', '2000'],
-    stateKey: 'debounce',
-  },
-  {
     title: 'Data Item Count',
     values: ['1000', '5000', '10000'],
     stateKey: 'dataCount',
   },
   {
     title: 'Display Limit',
-    values: ['5', '10', '20', '50'],
-    stateKey: 'limit',
+    values: ['12', '24', '50', '100'],
+    stateKey: 'resultsLimit',
   },
   {
     title: 'Component Type',
@@ -39,11 +36,11 @@ const demoOptions = [
 
 export default class App extends Component {
   state = {
-    debounce: '100',
     dataCount: '1000',
-    limit: '5',
+    resultsLimit: '12',
     componentType: 'Filter',
     renderItemFunction: 'PersonCard',
+    optionsIsActive: false,
   };
 
   setDemoOption(evt, stateKey) {
@@ -56,36 +53,63 @@ export default class App extends Component {
 
   getFilterProps() {
     const {
-      debounce,
       dataCount,
       componentType,
-      limit,
+      resultsLimit,
       renderItemFunction,
     } = this.state;
 
     const filterProps = {
       data: people.slice(0, dataCount),
-      debounce: Number(debounce),
-      displayOptions: {
-        limit: Number(limit),
-        showBlankStateData: componentType === 'Filter',
-      },
+      resultsLimit: Number(resultsLimit),
+      showDefaultData: componentType === 'Filter',
       fuseConfig,
+      inputPlaceholder: 'Enter keywords...',
     };
 
+    // refactor for multiple example components
     if (renderItemFunction === 'PersonCard') filterProps.renderItem = PersonCard;
 
     return filterProps;
   }
 
-  renderOptionInputs() {
+  toggleOptions = () => this.setState({ optionsIsActive: !this.state.optionsIsActive });
+
+  renderOptionsContainer() {
+    const { optionsIsActive } = this.state;
+
+    const containerClasses = classNames(
+      'App-options',
+      { 'options-is-active': optionsIsActive },
+    );
+    const buttonClasses = classNames(
+      'options-toggle-btn',
+      { 'btn-is-active': optionsIsActive },
+    );
+
+    const toggleOptionsButtonContent = optionsIsActive ? 'Hide Options' : 'Show Options';
+
+    return (
+      <div className={containerClasses}>
+        {this.renderOptionsInputs()}
+        <button
+          className={buttonClasses}
+          onClick={this.toggleOptions}
+        >
+          {toggleOptionsButtonContent}
+        </button>
+      </div>
+    );
+  }
+
+  renderOptionsInputs() {
     return demoOptions.map(({ title, values, stateKey }) => (
-      <div key={stateKey}>
+      <div key={stateKey} className="filter">
         <div>
           {title}
         </div>
         <select onChange={evt => this.setDemoOption(evt, stateKey)}>
-          {values.map(value => <option key={value} value={value}>{value}</option>)}
+          {values.map(value => <option key={value} value={value}>{startCase(value)}</option>)}
         </select>
       </div>
     ));
@@ -97,8 +121,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <AppHeader />
-        {this.renderOptionInputs()}
-        <br />
+        {this.renderOptionsContainer()}
         <FilterContainer {...filterProps} />
       </div>
     );

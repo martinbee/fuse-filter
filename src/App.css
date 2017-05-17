@@ -1,10 +1,182 @@
+
+body {
+  background: #eef1f7;
+  margin: 0;
+  padding: 0;
+  color: #333333;
+  font-family: sans-serif;
+}
+
+* { outline: 0; }
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #dddddd;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #dddddd;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #dddddd;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #dddddd;
+}
+
+textarea, input, button { outline: none; }
+
+.card{
+  transition: 0.2s ease-out;
+  font-size: 16px;
+  -webkit-backface-visibility: hidden;
+  padding: 20px 25px;
+  background: #ffffff;
+  color: #222222;
+  margin-bottom: 26px;
+  box-shadow: 0 4px 8px 0 rgba(144,159,179,.4);
+  overflow: hidden;
+}
+.card:hover{
+  transform: scale(1.03);
+  cursor: pointer;
+  box-shadow: 0 5px 8px 0 rgba(144,159,179,.6);
+}
+.card h5{
+  margin: 6px 0 6px 0;
+  padding: 0;
+}
+.card p{
+  margin: 0 0 6px 0;
+  padding: 0;
+  font-size: 14px;
+}
+
 .App {
   text-align: center;
 }
-
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  background-color: #333;
+  padding: 15px;
+  color: #ffffff;
+}
+.App-header h2 {
+  font-size: 21px;
+  margin: 0;
+}
+
+.App-options {
+  background-color: #444;
+  color: #ffffff;
+  transition: 0.3s ease-in-out;
+  max-height: 0;
+}
+.App-options .filter{
+  display: none;
+  margin: 10px 10px 15px 10px;
+}
+.App-options .filter:first-child{
+  margin-top: 20px;
+}
+.App-options .filter:last-child{
+  margin-bottom: 20px;
+}
+.App-options.options-is-active{
+  max-height: 350px;
+}
+.Select-multi-value-wrapper{
+  height: 58px;
+}
+.App-options.options-is-active .filter{
+  display: inline-block;
+}
+.options-toggle-btn{
+  background: #333333;
+  border: none;
+}
+
+/*.Select--multi{
+  width: 25%;
+  float: left;
+  display: none;
+}*/
+/*.Select--multi .Select-control{
+  height: 60px;
+  border: 1px solid #ccc;
+  border-radius: 0;
+}*/
+/*.App-options .Select--multi .Select-value {
+  margin-top: 15px !important;
+}*/
+
+.App-input{
+  width: calc(100% - 60px);
+  height: 60px;
+  padding: 0 20px 0 250px;
+  font-size: 21px;
+  margin: 27px auto 25px auto;
+  border: 2px solid #c2c2c2;
+}
+.App-input:hover{
+  border: 2px solid #222222;
+}
+
+.options-toggle-btn{
+  position: absolute;
+  top: 19px;
+  right: 20px;
+  color: #dddddd;
+}
+
+.Select--single{
+  margin-top: -38px;
+  position: absolute;
+  left: 35px;
+  top: 74px;
+  width: 200px;
+}
+.Select--single .Select-control{
+  border: none !important;
+}
+.Select--single .Select-control:hover{
+  box-shadow: none !important;
+}
+
+
+@media (max-width: 998px) {
+  .App-input{
+    width: calc(100% - 20px);
+    height: 50px;
+    padding: 0 15px 0 140px;
+    font-size: 18px;
+    margin: 12px auto 12px auto;
+  }
+
+  .Select--single{
+    margin-top: -36px;
+    left: 12px;
+    top: 54px;
+    width: 140px;
+  }
+  .Select--single .Select-control{
+    border: none !important;
+  }
+  .Select--single .Select-control:hover{
+    box-shadow: none !important;
+  }
+
+  .card{
+    padding: 15px 2px;
+    margin-bottom: 8px;
+  }
+
+  .row {
+    margin-left: -5px !important;
+    margin-right: -5px !important;
+  }
+  .col, .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+
 }
